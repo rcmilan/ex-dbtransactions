@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  mariadb:
+    container_name: "mariadb"
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=42069lmao
+      - MYSQL_PASSWORD=42069lmao
+      - MYSQL_USER=dbuser
+      - MYSQL_DATABASE=tdb
+    restart: always
+    networks:
+      - mariadb_network
+
+  ex-dbtransactions:
+    container_name: "dbtapi"
+    image: ${DOCKER_REGISTRY-}exdbtransactions
+    build:
+      context: .
+      dockerfile: ex-dbtransactions/Dockerfile
+    depends_on:
+      - mariadb
+    networks:
+      - mariadb_network
+
+networks:
+  mariadb_network:
+    driver: bridge
