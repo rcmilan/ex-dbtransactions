@@ -7,5 +7,7 @@ namespace ex_dbtransactions.Entities
         public string Name { get; set; }
 
         public virtual PersonAddress Address { get; set; }
+
+        public Department Department { get; set; }
     }
 }

@@ -25,7 +25,12 @@ namespace ex_dbtransactions.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>().HasKey(p => p.Id);
+            modelBuilder.Entity<Person>()
+                .HasKey(p => p.Id);
+
+            modelBuilder.Entity<Person>()
+                .Property(p => p.Department)
+                .HasConversion<int>();
 
             modelBuilder.Entity<Person>().OwnsOne(p => p.Address, pa =>
             {
